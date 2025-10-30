@@ -154,3 +154,20 @@ npm run dev
 
 我们欢迎所有形式的贡献！
 
+## 📸 运行截图
+
+### 1. 首页 & 行程生成
+
+<img width="2501" height="1266" alt="image" src="https://github.com/user-attachments/assets/81156ba0-92d9-4eb8-bec4-6126cbea2288" />
+
+<img width="2499" height="1268" alt="image" src="https://github.com/user-attachments/assets/1f4dd3a2-17b0-4c13-8153-4c5ffba615c5" />
+
+### 2. 详细行程与地图
+
+<img width="1769" height="3081" alt="image" src="https://github.com/user-attachments/assets/5584a610-0238-47a1-81a7-69eeef8bc2f9" />
+
+### 3. 智能预算与记账
+
+<img width="1132" height="1330" alt="image" src="https://github.com/user-attachments/assets/79403469-5822-4726-9b06-32af8f51e5cd" />
+
+
