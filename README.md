@@ -36,7 +36,7 @@ AI 旅行规划师是一个智能 Web 应用，旨在简化旅行计划过程。
 
 ```bash
 # 克隆仓库
-git clone [YOUR_REPOSITORY_URL]
+git clone [[YOUR_REPOSITORY_URL]](https://github.com/senortaQ/ai-travel-planner.git)
 cd ai-travel-planner
 
 # 安装依赖
