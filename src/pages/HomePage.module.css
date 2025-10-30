@@ -1,0 +1,132 @@
+/* src/pages/HomePage.module.css */
+
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 20px;
+    text-align: center;
+}
+
+.divider {
+    border: 0;
+    border-top: 1px solid #e0e0e0;
+    margin: 40px 0;
+}
+
+/* 1. 英雄区 (Hero Section) */
+.heroSection {
+    padding: 60px 20px;
+    background: linear-gradient(135deg, #f7f9fb, #eef1f5); /* 浅色渐变背景 */
+    border-radius: 15px;
+    margin-bottom: 20px;
+}
+
+.heroTitle {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: #1a202c;
+    margin-bottom: 20px;
+    line-height: 1.2;
+}
+
+.heroSubtitle {
+    font-size: 1.25rem;
+    color: #4a5568;
+    margin-bottom: 30px;
+}
+
+.ctaButton {
+    display: inline-block;
+    padding: 15px 30px;
+    background-color: #007aff; /* 品牌蓝色 */
+    color: white;
+    text-decoration: none;
+    font-size: 1.1rem;
+    font-weight: 700;
+    border-radius: 10px;
+    transition: background-color 0.3s, transform 0.2s;
+    box-shadow: 0 4px 15px rgba(0, 122, 255, 0.3);
+}
+
+.ctaButton:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+}
+
+/* 2. 核心功能展示区 */
+.featuresSection {
+    margin-bottom: 40px;
+}
+
+.sectionHeader {
+    font-size: 1.8rem;
+    color: #2c3e50;
+    margin-bottom: 30px;
+    font-weight: 700;
+}
+
+.featureGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+}
+
+.featureCard {
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    transition: box-shadow 0.3s, transform 0.3s;
+    text-align: left;
+}
+
+.featureCard:hover {
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+    transform: translateY(-5px);
+}
+
+.featureIcon {
+    font-size: 3rem;
+    margin-bottom: 15px;
+}
+
+.featureTitle {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.featureDescription {
+    font-size: 1rem;
+    color: #666;
+    line-height: 1.5;
+}
+
+/* 3. 额外宣传区 */
+.calloutSection {
+    padding: 20px;
+    background-color: #e3f2fd; /* 淡蓝色背景 */
+    border-radius: 10px;
+    font-size: 1.1rem;
+    color: #1e88e5;
+    font-weight: 500;
+}
+
+.highlight {
+    font-weight: 700;
+    color: #0d47a1;
+}
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+    .heroTitle {
+        font-size: 2rem;
+    }
+    .heroSubtitle {
+        font-size: 1rem;
+    }
+    .featureGrid {
+        grid-template-columns: 1fr;
+    }
+}

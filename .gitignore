@@ -1,0 +1,50 @@
+# ==================================
+# 核心安全：保护环境变量
+# 避免将实际的 Supabase URL/Key 和 AI Key 提交到 Git
+# 用户应将 .env.example 复制为 .env 并填写
+# ==================================
+.env
+.env.local
+.env.*.local
+
+# ==================================
+# 依赖和构建输出 (Node.js/Vite)
+# ==================================
+/node_modules
+/dist
+/dist-ssr
+/coverage
+
+# ==================================
+# 日志文件
+# ==================================
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# ==================================
+# 编辑器/操作系统文件
+# ==================================
+# VS Code
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json # 允许提交推荐的设置
+!.vscode/tasks.json
+!.vscode/launch.json
+
+# IntelliJ/WebStorm
+.idea
+
+# macOS
+.DS_Store
+
+# Windows/Other
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?

@@ -1,0 +1,497 @@
+/* --- 基础布局 --- */
+.container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background: #f9f9f9;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.backLink {
+    text-decoration: none;
+    color: #007aff;
+    font-weight: 500;
+    margin-bottom: 20px;
+    display: inline-block;
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.header h1 {
+    margin: 0;
+    color: #333;
+}
+.header p {
+    margin: 5px 0 0;
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.divider {
+    border: 0;
+    border-top: 1px solid #e0e0e0;
+    margin: 30px 0;
+}
+
+.sectionTitle {
+    font-size: 1.4rem;
+    color: #222;
+    margin: 0; /* 配合 .expenseHeader 布局 */
+}
+
+/* --- 提示信息 --- */
+.loadingMessage {
+    text-align: center;
+    padding: 40px;
+    font-size: 1.2rem;
+    color: #555;
+}
+
+.errorMessage {
+    color: #D32F2F;
+    background: #FFCDD2;
+    padding: 10px 15px;
+    border-radius: 6px;
+    margin-bottom: 15px;
+}
+.authWarning {
+    color: #D32F2F;
+    font-size: 0.9rem;
+}
+
+/* --- 1. 总结栏 --- */
+.budgetSummary {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 15px;
+    margin-bottom: 10px;
+}
+.summaryBox {
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    text-align: center;
+}
+.summaryBox h4 {
+    margin: 0 0 10px;
+    color: #555;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+.summaryBox p {
+    margin: 0;
+    color: #000;
+    font-size: 1.8rem;
+    font-weight: 700;
+}
+.overBudgetHighlight {
+    background: #FFF3F3;
+    border: 1px solid #F44336;
+}
+.overBudgetHighlight p {
+    color: #F44336;
+}
+
+/* --- 2. 预算追踪 (进度条) --- */
+.budgetBreakdown {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 20px;
+}
+.budgetCategory {
+    background: #fff;
+    padding: 15px;
+    border: 2px solid transparent;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: box-shadow 0.2s, transform 0.2s, border-color 0.2s;
+}
+.budgetCategory:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+.budgetCategory.selectedCategory {
+    border-color: #007aff;
+    box-shadow: 0 4px 12px rgba(0,122,255,0.2);
+}
+
+.categoryHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+.categoryIcon {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #333;
+}
+.categoryAmount {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #111;
+}
+.estimatedAmount {
+    font-size: 0.9rem;
+    color: #777;
+    font-weight: 400;
+    margin-left: 4px;
+}
+.overBudget {
+    color: #F44336 !important;
+}
+
+.progressBarContainer {
+    width: 100%;
+    height: 10px;
+    background: #e0e0e0;
+    border-radius: 5px;
+    overflow: hidden;
+}
+.progressBar {
+    height: 100%;
+    background: #007aff;
+    border-radius: 5px;
+    transition: width 0.3s ease;
+}
+.overBudgetBar {
+    background: #F44336 !important;
+}
+
+
+/* --- 3. 开销管理 --- */
+.expenseHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+.addExpenseButton {
+    background: #007aff;
+    color: white;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+.addExpenseButton:hover {
+    background: #0056b3;
+}
+.addExpenseButton:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+}
+
+.showAllButton {
+    background: none;
+    border: 1px solid #007aff;
+    color: #007aff;
+    padding: 8px 14px;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+    margin-right: auto;
+    margin-left: 20px;
+}
+.showAllButton:hover {
+    background: #e6f2ff;
+}
+
+
+/* 记账模态框 (Modal) */
+.modalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    animation: fadeIn 0.3s ease;
+}
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.modalContent {
+    background: #ffffff;
+    padding: 25px 30px;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 450px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+    animation: slideIn 0.3s ease-out;
+}
+@keyframes slideIn {
+    from { transform: translateY(-30px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+.modalTitle {
+    text-align: center;
+    font-size: 1.5rem;
+    color: #222;
+    margin-top: 0;
+    margin-bottom: 25px;
+}
+
+/* --- AI 智能记账区域 (复刻截图样式) --- */
+
+.aiParsingSection {
+    padding: 0;
+    margin-bottom: 20px;
+}
+
+.aiSectionTitle {
+    font-size: 1rem;
+    color: #333;
+    margin: 0 0 15px 0;
+    font-weight: 400;
+}
+
+.rawInputArea {
+    width: 100%;
+    padding: 15px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    resize: vertical;
+    box-sizing: border-box;
+    min-height: 100px;
+    background: #fff;
+}
+.rawInputArea::placeholder {
+    color: #888;
+}
+.rawInputArea:focus {
+    border-color: #007aff;
+    box-shadow: 0 0 0 2px rgba(0, 122, 255, 0.2);
+}
+
+.aiButtonRow {
+    display: flex;
+    justify-content: flex-start; /* 保持 flex-end 或根据你的喜好调整 */
+    gap: 12px;
+    margin-top: 20px;
+}
+
+.aiButton {
+    padding: 10px 18px;
+    font-size: 1rem;
+    font-weight: 500;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.2s, opacity 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    flex: 1; /* 让按钮平分空间 */
+}
+
+.buttonIcon {
+    font-size: 1.2rem;
+    margin-right: 6px;
+    line-height: 1;
+}
+
+/* 录音按钮 */
+.recordButton {
+    background: #f0f0f0;
+    color: #444;
+    border: 1px solid #ddd;
+}
+.recordButton:hover {
+    background: #e0e0e0;
+}
+.recordButton.isListening {
+    background: #ff7043;
+    color: white;
+}
+
+/* 清空按钮 */
+.clearButton {
+    background: #f0f0f0;
+    color: #444;
+    border: 1px solid #ddd;
+}
+.clearButton:hover {
+    background: #e0e0e0;
+}
+
+/* AI 处理按钮 */
+.processButton {
+    background: #007aff;
+    color: white;
+}
+.processButton:hover {
+    background: #0056b3;
+}
+.processButton .buttonIcon {
+    color: white;
+}
+
+.aiButton:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    background: #e0e0e0;
+    color: #999;
+}
+
+/* --- 最终确认表单的样式 --- */
+.reviewPrompt {
+    font-weight: 600;
+    color: #444;
+    margin: 10px 0;
+    font-size: 0.95rem;
+}
+.expenseForm {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+.formGroup {
+    display: flex;
+    flex-direction: column;
+}
+.formGroup label {
+    margin-bottom: 5px;
+    font-weight: 600;
+    color: #444;
+}
+.formGroup input,
+.formGroup select {
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 1rem;
+    background: #fdfdfd;
+}
+.formActions {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+.formActions button {
+    flex: 1;
+    padding: 12px;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 6px;
+    cursor: pointer;
+    border: none;
+    transition: background 0.2s;
+}
+.formActions .cancelButton {
+    background: #f0f0f0;
+    color: #555;
+    border: 1px solid #ccc;
+}
+.formActions .cancelButton:hover {
+    background: #e0e0e0;
+}
+.formActions button[type="submit"] {
+    background: #28a745;
+    color: white;
+}
+.formActions button[type="submit"]:hover {
+    background: #218838;
+}
+.formActions button:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+}
+
+
+/* --- 开销列表 (卡片式) --- */
+.expenseList {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 10px;
+}
+.expenseItem {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #fff;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+.itemLeft {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    overflow: hidden;
+}
+.categoryIconLarge {
+    font-size: 1.8rem;
+    padding: 8px;
+    background: #f0f0f0;
+    border-radius: 50%;
+    width: 45px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+.itemDetails {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+.itemName {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #333;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.itemDate {
+    font-size: 0.8rem;
+    color: #777;
+}
+
+.itemRight {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    flex-shrink: 0;
+}
+.itemAmount {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #000;
+    white-space: nowrap;
+}
+.deleteButton {
+    background: none;
+    border: none;
+    color: #F44336;
+    font-size: 1.5rem;
+    font-weight: 700;
+    cursor: pointer;
+    padding: 5px;
+    line-height: 1;
+}
+.deleteButton:hover {
+    color: #D32F2F;
+}

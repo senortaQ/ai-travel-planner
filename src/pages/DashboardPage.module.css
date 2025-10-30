@@ -1,0 +1,514 @@
+/* src/pages/DashboardPage.module.css (v5 - Final with Modal + Pagination) */
+
+/* --- 全局样式和主容器 --- */
+.dashboardContainer {
+    max-width: 1200px;
+    margin: 2.5rem auto;
+    padding: 0 1.5rem;
+}
+
+/* --- 列表区域 --- */
+.listSection {
+    background: #ffffff;
+    border-radius: 14px;
+    padding: 1.5rem 2.5rem 2.5rem 2.5rem;
+    border: 1px solid #e5e7eb;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+}
+
+.listHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid #f0f0f0;
+    padding-bottom: 1.5rem;
+}
+
+.listHeader h2 {
+    margin: 0;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #333;
+}
+
+/* --- “创建新行程”按钮 --- */
+.createButton {
+    padding: 0.8rem 1.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #ffffff;
+    background-color: #0070f3;
+    border: none;
+    border-radius: 9px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
+.createButton:hover {
+    background-color: #005bb5;
+    transform: translateY(-2px);
+}
+.createButton:active {
+    transform: translateY(0);
+}
+
+/* --- 加载与空状态信息 --- */
+.loadingMessage, .emptyMessage {
+    text-align: center;
+    color: #666;
+    padding: 3rem 0;
+    font-size: 1.1rem;
+}
+
+/* --- 行程卡片列表 --- */
+.tripList {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 2rem;
+}
+
+.tripCard {
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    background: #ffffff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    transition: all 0.2s ease;
+    display: flex;
+    flex-direction: column;
+    padding: 1.5rem;
+}
+
+.tripCard:hover {
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+    transform: translateY(-4px);
+}
+
+.tripCard h3 {
+    margin: 0 0 0.6rem 0;
+    color: #1a1a1a;
+    font-size: 1.4rem;
+    font-weight: 600;
+}
+
+.tripCard p {
+    margin: 0.3rem 0;
+    color: #555;
+    font-size: 0.98rem;
+    line-height: 1.5;
+}
+
+.tripCard p:first-of-type {
+    font-weight: 500;
+    color: #333;
+}
+
+/* --- 卡片内的按钮组 --- */
+.cardActions {
+    margin-top: 1.75rem;
+    border-top: 1px solid #f0f0f0;
+    padding-top: 1.5rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+    margin-top: auto;
+}
+
+.cardActions button {
+    padding: 0.7rem 1rem;
+    font-weight: 500;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: 1px solid transparent;
+}
+
+.aiButton {
+    grid-column: 1 / -1;
+    background-color: #0070f3;
+    color: white;
+    border-color: #0070f3;
+}
+.aiButton:hover:not(:disabled) {
+    background-color: #005bb5;
+    border-color: #005bb5;
+}
+
+.viewButton {
+    background-color: #ffffff;
+    color: #333;
+    border-color: #dcdcdc;
+}
+.viewButton:hover:not(:disabled) {
+    background-color: #f9f9f9;
+    border-color: #bbb;
+}
+
+.deleteButton {
+    background-color: #ffffff;
+    color: #d93025;
+    border-color: #f5c6c6;
+}
+.deleteButton:hover:not(:disabled) {
+    background-color: #d93025;
+    color: white;
+    border-color: #d93025;
+}
+
+.cardActions button:disabled {
+    background-color: #f9f9f9;
+    color: #aaa;
+    border-color: #e5e5e5;
+    cursor: not-allowed;
+    opacity: 0.8;
+}
+
+.viewButton:disabled {
+    background-color: #f9f9f9;
+    color: #aaa;
+    border-color: #e5e5e5;
+}
+
+/* --- 表单元素通用样式 (适用于模态框内的表单) --- */
+.tripForm {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.formGroup {
+    display: flex;
+    flex-direction: column;
+}
+
+.formGroup label {
+    margin-bottom: 0.6rem;
+    font-weight: 600;
+    color: #444;
+    font-size: 0.95rem;
+}
+
+.formGroup input[type="text"],
+.formGroup input[type="date"],
+.formGroup input[type="number"],
+.formGroup textarea {
+    padding: 0.9rem 1.1rem;
+    font-size: 1rem;
+    border: 1px solid #dcdcdc;
+    border-radius: 8px;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    font-family: inherit;
+    color: #333;
+    background-color: #fcfcfc;
+}
+
+.formGroup input:focus,
+.formGroup textarea:focus {
+    outline: none;
+    border-color: #0070f3;
+    box-shadow: 0 0 0 3px rgba(0, 112, 243, 0.15);
+}
+
+.formGroup textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+.submitButton {
+    padding: 1rem 1.25rem;
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: #ffffff;
+    background-color: #0070f3;
+    border: none;
+    border-radius: 9px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+    margin-top: 1.5rem;
+}
+.submitButton:hover:not(:disabled) {
+    background-color: #005bb5;
+    transform: translateY(-2px);
+}
+.submitButton:active:not(:disabled) {
+    transform: translateY(0);
+}
+.submitButton:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* --- 错误信息 (列表和模态框) --- */
+.errorMessage {
+    background-color: #fde8e8;
+    color: #d93025;
+    border: 1px solid #f5c6c6;
+    padding: 0.8rem 1rem;
+    border-radius: 8px;
+    text-align: center;
+    font-size: 0.9rem;
+    margin-top: 1.5rem; /* 与上方元素保持间距 */
+    margin-bottom: 1rem; /* 与下方元素保持间距 */
+}
+/* 模态框内的错误信息不需要额外的上边距 */
+.modalErrorMessage {
+    margin-top: 0;
+}
+
+
+/* --- 模态框样式 --- */
+.modalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+}
+.modalOverlay.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.modalContent {
+    background-color: #ffffff;
+    padding: 2.5rem 3rem;
+    border-radius: 16px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+    max-width: 550px;
+    width: 90%;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+    transform: scale(0.95) translateY(10px);
+    opacity: 0;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    pointer-events: none;
+}
+.modalOverlay.active .modalContent {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+    pointer-events: auto;
+}
+
+
+.modalHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2.2rem;
+    padding-bottom: 1.2rem;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.modalHeader h2 {
+    margin: 0;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #333;
+}
+
+.closeButton {
+    background: none;
+    border: none;
+    font-size: 2.2rem;
+    line-height: 1;
+    cursor: pointer;
+    color: #a0a0a0;
+    padding: 0.2rem 0.6rem;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+}
+.closeButton:hover {
+    color: #666;
+    background-color: #f5f5f5;
+}
+
+/* 模态框内的表单样式微调 */
+.modalContent .tripForm {
+    padding-top: 0.5rem;
+}
+
+/* --- 分页样式 --- */
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #f0f0f0;
+}
+
+.pageButton {
+    padding: 0.6rem 1.2rem;
+    margin: 0 0.5rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #333;
+    background-color: #ffffff;
+    border: 1px solid #dcdcdc;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.pageButton:hover:not(:disabled) {
+    background-color: #f5f5f5;
+    border-color: #bbb;
+}
+
+.pageButton:disabled {
+    color: #aaa;
+    border-color: #e5e5e5;
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+.pageInfo {
+    margin: 0 1rem;
+    font-size: 0.95rem;
+    color: #555;
+}
+
+/* --- 新增：高级语音输入 UI 样式 --- */
+
+.voiceInputContainer {
+    margin-bottom: 2rem; /* 与下方表单的间距 */
+    padding-bottom: 1.5rem; /* 底部内边距 */
+    border-bottom: 1px solid #f0f0f0; /* 添加分隔线 */
+    /* 可以根据需要添加更多样式，比如背景色 */
+}
+
+.voiceLabel {
+    display: block;
+    margin-bottom: 0.8rem;
+    font-weight: 600;
+    color: #444;
+    font-size: 0.95rem;
+    text-align: left; /* 确保标签左对齐 */
+}
+
+.transcriptArea {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    font-size: 1rem;
+    border: 1px solid #dcdcdc;
+    border-radius: 8px;
+    resize: vertical; /* 允许垂直调整大小 */
+    min-height: 80px; /* 最小高度 */
+    margin-bottom: 1rem;
+    font-family: inherit;
+    color: #333;
+    background-color: #fcfcfc;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.transcriptArea:focus {
+    outline: none;
+    border-color: #0070f3;
+    box-shadow: 0 0 0 3px rgba(0, 112, 243, 0.15);
+}
+.transcriptArea::placeholder { /* 优化 placeholder 样式 */
+    color: #999;
+}
+.transcriptArea:disabled {
+    background-color: #f5f5f5; /* 禁用时背景色 */
+    cursor: not-allowed;
+    color: #888;
+}
+
+
+.voiceButtons {
+    display: flex;
+    justify-content: center; /* 居中按钮 */
+    gap: 0.8rem; /* 按钮间距 */
+    margin-top: 0.5rem; /* 与文本域间距 */
+    flex-wrap: wrap; /* 在小屏幕允许换行 */
+}
+
+/* 图标按钮通用样式 */
+.iconButton {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem; /* 图标和文字间距 */
+    padding: 0.6rem 1rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+    border-radius: 8px;
+    border: 1px solid #dcdcdc;
+    background-color: #fff;
+    color: #555;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    white-space: nowrap; /* 防止按钮内文字换行 */
+}
+.iconButton svg {
+    width: 1.1em; /* 控制图标大小 */
+    height: 1.1em;
+    flex-shrink: 0; /* 防止图标被压缩 */
+}
+
+.iconButton:hover:not(:disabled) {
+    background-color: #f5f5f5;
+    border-color: #bbb;
+}
+
+/* 开始录音按钮（默认状态） */
+.startButton {
+    /* 可以添加特定样式，例如蓝色边框或颜色 */
+    /* border-color: #0070f3; */
+    /* color: #0070f3; */
+}
+
+/* 停止录音按钮 */
+.stopButton {
+    background-color: #ffebeb; /* 淡红色 */
+    color: #d93025;
+    border-color: #f5c6c6;
+}
+.stopButton:hover:not(:disabled) {
+    background-color: #fddddd;
+}
+
+/* 清空按钮 */
+.clearButton {
+    color: #888;
+}
+.clearButton:hover:not(:disabled) {
+    color: #555;
+}
+
+/* AI 处理按钮 */
+.processButton {
+    background-color: #e0f0ff; /* 淡蓝色 */
+    color: #005bb5;
+    border-color: #b3d9ff;
+    font-weight: 600; /* 加粗一点 */
+}
+.processButton:hover:not(:disabled) {
+    background-color: #cce5ff;
+}
+/* AI 处理加载状态（如果图标在旋转，可以不需要额外样式） */
+.processButton:disabled svg.animate-spin {
+    /* 可以添加特定样式 */
+}
+
+/* 通用禁用样式 */
+.iconButton:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+/* 语音/NLU 错误提示 */
+.speechErrorMessage {
+    margin-top: 1rem;
+    margin-bottom: 0;
+    text-align: center;
+}

@@ -1,0 +1,108 @@
+/* src/pages/LoginPage.module.css */
+
+.container {
+    max-width: 400px;
+    margin: 4rem auto;
+    padding: 2.5rem;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+    border: 1px solid #eaeaea;
+}
+
+.title {
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+    color: #222;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem; /* 输入框之间的间距 */
+}
+
+.inputGroup {
+    display: flex;
+    flex-direction: column;
+}
+
+.inputGroup label {
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: #333;
+}
+
+.inputField {
+    padding: 0.8rem 1rem;
+    font-size: 1rem;
+    border: 1px solid #dcdcdc;
+    border-radius: 8px;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.inputField:focus {
+    outline: none;
+    border-color: #0070f3; /* 聚焦时高亮 */
+    box-shadow: 0 0 0 3px rgba(0, 112, 243, 0.1);
+}
+
+.submitButton {
+    padding: 0.9rem 1rem;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #ffffff;
+    background-color: #0070f3;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    margin-top: 1rem;
+}
+
+.submitButton:hover {
+    background-color: #005bb5;
+}
+
+.submitButton:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+}
+
+.toggleButton {
+    background: none;
+    border: none;
+    color: #0070f3;
+    cursor: pointer;
+    text-align: center;
+    margin-top: 1.5rem;
+    font-size: 0.9rem;
+}
+
+.toggleButton:hover {
+    text-decoration: underline;
+}
+
+/* 消息提示的样式 */
+.message,
+.errorMessage {
+    padding: 0.8rem 1rem;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    text-align: center;
+    font-size: 0.9rem;
+}
+
+.message {
+    background-color: #e6f7e6;
+    color: #006400;
+    border: 1px solid #b7e1b7;
+}
+
+.errorMessage {
+    background-color: #fde8e8;
+    color: #d93025;
+    border: 1px solid #f5c6c6;
+}

@@ -1,0 +1,161 @@
+/* src/App.css */
+
+/* --- 全局样式和重置 (如果之前没有，可以添加) --- */
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+  'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #f0f2f5; /* 轻微的背景色，让内容更突出 */
+  color: #333;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  monospace;
+}
+
+/* --- App 容器和布局 --- */
+.app-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* --- 导航栏样式 (app-header) --- */
+.app-header {
+  display: flex;
+  justify-content: space-between; /* Logo 居左，导航链接居右 */
+  align-items: center;
+  padding: 15px 40px; /* 内部间距 */
+
+  background-color: #ffffff; /* 干净的白色背景 */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); /* 增加轻微阴影，制造漂浮效果 */
+
+  position: sticky; /* 固定在顶部 */
+  top: 0;
+  z-index: 100; /* 确保它在所有内容之上 */
+  border-bottom: 1px solid #eee; /* 底部细线 */
+}
+
+/* Logo 样式 */
+.app-header h1 {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #333; /* 醒目的深色 */
+  margin: 0; /* 移除默认的 h1 外边距 */
+}
+
+/* 导航链接容器 */
+.app-header nav {
+  display: flex;
+  align-items: center;
+  gap: 20px; /* 链接之间的间距 */
+}
+
+/* 导航链接 (Link 组件) 基础样式 */
+.nav-link {
+  color: #555; /* 默认灰色 */
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 500;
+  padding: 5px 0;
+  transition: color 0.2s, border-bottom 0.2s;
+  /* margin-right: 0 !important;  如果 App.jsx 中已移除内联 style，这行就不需要了 */
+}
+
+.nav-link:hover {
+  color: #007aff; /* 悬停时变为品牌蓝色 */
+}
+
+/* 激活链接的样式 (根据截图，是紫色的下划线和文字) */
+.active-link {
+  color: #6a0dad; /* 突出显示为紫色 */
+  border-bottom: 2px solid #6a0dad; /* 底部加粗下划线 */
+}
+
+/* 登出/登录按钮样式 */
+.logout-button { /* 假设登录按钮也使用此样式，或者为登录按钮添加一个新类名 */
+  /* 重置默认按钮样式 */
+  background-color: #f0f0f0;
+  color: #333;
+  border: 1px solid #ccc;
+
+  /* 赋予现代感 */
+  padding: 8px 15px;
+  border-radius: 6px; /* 柔和的圆角 */
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s, border-color 0.2s;
+
+  /* 确保与链接对齐 */
+  line-height: 1;
+}
+
+.logout-button:hover {
+  background-color: #e0e0e0;
+  border-color: #b3b3b3;
+}
+
+
+/* --- 主要内容区域 (app-main) --- */
+.app-main {
+  flex-grow: 1; /* 占据剩余空间，让 footer 沉底 */
+  padding: 20px 40px; /* 给主要内容区域一些内边距 */
+  /* background-color: #ffffff; /* 如果你希望内容区是白色，可以打开 */
+  /* border-radius: 8px; */
+  /* box-shadow: 0 2px 8px rgba(0,0,0,0.05); */
+}
+
+
+/* --- 底部 (app-footer) 样式 --- */
+.app-footer {
+  text-align: center;
+  padding: 15px 0;
+  border-top: 1px solid #e0e0e0;
+  background-color: #f7f7f7;
+  color: #777;
+  font-size: 0.85rem;
+}
+
+/* --- 媒体查询 (响应式设计) --- */
+@media (max-width: 768px) {
+  .app-header {
+    padding: 15px 20px;
+  }
+  .app-header h1 {
+    font-size: 1.4rem;
+  }
+  .app-header nav {
+    gap: 15px;
+  }
+  .nav-link, .logout-button {
+    font-size: 0.9rem;
+    padding: 6px 10px;
+  }
+  .app-main {
+    padding: 15px 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .app-header {
+    flex-direction: column; /* 小屏幕下导航栏垂直堆叠 */
+    padding: 10px 15px;
+    gap: 10px; /* Logo 和导航之间增加间距 */
+  }
+  .app-header h1 {
+    font-size: 1.2rem;
+  }
+  .app-header nav {
+    width: 100%; /* 导航链接占据全部宽度 */
+    justify-content: center; /* 导航链接居中 */
+    gap: 8px;
+  }
+  .app-main {
+    padding: 10px 15px;
+  }
+}
