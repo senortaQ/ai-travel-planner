@@ -11,10 +11,10 @@ const corsHeaders = {
 
 // 3. [初始化 OpenAI 客户端，指向阿里]
 // 复用你已有的 TONGYI_API_KEY
-const client = new OpenAI({
-  apiKey: Deno.env.get('TONGYI_API_KEY'), // 从 Supabase Vault 读取
-  baseURL: 'https://dashscope.aliyuncs.com/compatible-mode/v1',
-})
+// const client = new OpenAI({
+//   apiKey: Deno.env.get('TONGYI_API_KEY'), // 从 Supabase Vault 读取
+//   baseURL: 'https://dashscope.aliyuncs.com/compatible-mode/v1',
+// })
 
 // [核心逻辑] 定义前端所期望的类别
 const VALID_CATEGORIES = ['餐饮', '交通', '住宿', '活动', '购物', '其它'];
@@ -28,10 +28,22 @@ Deno.serve(async (req) => {
 
   try {
     // 4.2. [获取参数] 从前端获取语音识别后的文本
-    const { text } = await req.json()
+    // const { text } = await req.json()
+    const { text, apiKey } = await req.json()
     if (!text) {
       throw new Error('缺少需要处理的文本 (text)')
     }
+    if (!apiKey) {
+      console.error('[ParseExpense] Missing apiKey in request body');
+      return new Response(
+          JSON.stringify({ error: '请求体中缺少 AI API Key' }),
+          { headers: { ...corsHeaders, 'Content-Type': 'application/json' }, status: 400 }
+      )
+    }
+    const client = new OpenAI({
+      apiKey: apiKey, // <-- 使用传入的 Key
+      baseURL: 'https://dashscope.aliyuncs.com/compatible-mode/v1',
+    })
     console.log('[ParseExpense] Received text:', text);
 
     // 4.3. [提示词工程 - NLU 任务]

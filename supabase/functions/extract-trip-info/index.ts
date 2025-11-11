@@ -11,10 +11,10 @@ const corsHeaders = {
 
 // 3. [初始化 OpenAI 客户端，指向阿里]
 // 复用我们在模块 3 中设置的 TONGYI_API_KEY
-const client = new OpenAI({
-  apiKey: Deno.env.get('TONGYI_API_KEY'),
-  baseURL: 'https://dashscope.aliyuncs.com/compatible-mode/v1',
-})
+// const client = new OpenAI({
+//   apiKey: Deno.env.get('TONGYI_API_KEY'),
+//   baseURL: 'https://dashscope.aliyuncs.com/compatible-mode/v1',
+// })
 
 // 4. [主函数]
 Deno.serve(async (req) => {
@@ -25,12 +25,26 @@ Deno.serve(async (req) => {
 
   try {
     // 4.2. [获取参数] 从前端获取语音识别后的文本
-    const { text } = await req.json()
+    // const { text } = await req.json()
+    const { text, apiKey } = await req.json()
     if (!text) {
       throw new Error('缺少需要处理的文本 (text)')
     }
-    console.log('[ExtractInfo] Received text:', text);
 
+
+    if (!apiKey) {
+      console.error('[ExtractInfo] Missing apiKey in request body');
+      return new Response(
+          JSON.stringify({ error: '请求体中缺少 AI API Key' }),
+          { headers: { ...corsHeaders, 'Content-Type': 'application/json' }, status: 400 }
+      )
+    }
+    const client = new OpenAI({
+      apiKey: apiKey, // <-- 使用传入的 Key
+      baseURL: 'https://dashscope.aliyuncs.com/compatible-mode/v1',
+    })
+
+    console.log('[ExtractInfo] Received text:', text);
     // 4.3. [提示词工程 - NLU 任务]
     // 指示 AI 从文本中提取关键信息，并以特定 JSON 格式返回
     // **注意**：日期提取比较复杂，我们先尝试提取，如果 AI 无法确定具体日期，它应该返回 null。

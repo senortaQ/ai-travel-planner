@@ -5,7 +5,7 @@ import { supabase } from '../supabaseClient';
 import { useAuth } from '../context/AuthContext';
 import styles from './DashboardPage.module.css';
 import { Mic, StopCircle, RotateCcw, Send, Loader2, Info } from 'lucide-react'; // 引入更多图标
-
+import { getAppConfig } from '../services/configService';
 // --- 页面大小常量 ---
 const PAGE_SIZE = 9; // 或者你之前设置的 6
 
@@ -167,9 +167,16 @@ function DashboardPage() {
         }
         setAiLoadingTripId(trip.id);
         setErrorMessage('');
+
+        const { aiKey } = getAppConfig();
+        if (!aiKey) {
+            alert('AI Key 未在配置中找到！请返回配置页面检查。');
+            setAiLoadingTripId(null); // 停止加载
+            return;
+        }
         try {
             const { data, error } = await supabase.functions.invoke('generate-itinerary', {
-                body: { trip_id: trip.id },
+                body: { trip_id: trip.id, apiKey: aiKey },
             });
             if (error) throw error;
             alert(`“${trip.destination}”的行程已成功生成！`);
@@ -294,9 +301,16 @@ function DashboardPage() {
         setNluLoading(true);
         setSpeechError(''); // 清除之前的错误
 
+        const { aiKey } = getAppConfig(); // 从 localStorage 获取 Key
+        if (!aiKey) {
+            setSpeechError('AI Key 未在配置中找到！请检查配置。');
+            setNluLoading(false); // 停止加载
+            return;
+        }
+
         try {
             const { data, error: invokeError } = await supabase.functions.invoke('extract-trip-info', {
-                body: { text: textToProcess },
+                body: { text: textToProcess, apiKey: aiKey},
             });
 
             if (invokeError) throw invokeError;

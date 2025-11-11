@@ -8,10 +8,10 @@ const corsHeaders = {
 }
 
 // 3. [初始化 OpenAI 客户端，但指向阿里]
-const client = new OpenAI({
-  apiKey: Deno.env.get('TONGYI_API_KEY'),
-  baseURL: 'https://dashscope.aliyuncs.com/compatible-mode/v1',
-})
+// const client = new OpenAI({
+//   apiKey: Deno.env.get('TONGYI_API_KEY'),
+//   baseURL: 'https://dashscope.aliyuncs.com/compatible-mode/v1',
+// })
 
 // 4. [主函数]
 Deno.serve(async (req) => {
@@ -22,10 +22,22 @@ Deno.serve(async (req) => {
 
   try {
     // 4.2. [获取参数]
-    const { trip_id } = await req.json()
+    // const { trip_id } = await req.json()
+    const { trip_id, apiKey } = await req.json()
     if (!trip_id) {
       throw new Error('缺少 trip_id')
     }
+    if (!apiKey) {
+      console.error('[Func] Missing apiKey in request body');
+      return new Response(
+          JSON.stringify({ error: '请求体中缺少 AI API Key' }),
+          { headers: { ...corsHeaders, 'Content-Type': 'application/json' }, status: 400 }
+      )
+    }
+    const client = new OpenAI({
+      apiKey: apiKey, // <-- 使用传入的 Key
+      baseURL: 'https://dashscope.aliyuncs.com/compatible-mode/v1',
+    })
 
     // 4.3. [安全认证]
     const supabaseClient = createClient(

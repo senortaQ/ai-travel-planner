@@ -3,7 +3,7 @@ import { useParams, Link } from 'react-router-dom';
 import { supabase } from '../supabaseClient';
 import styles from './BudgetDetailPage.module.css';
 import { useAuth } from '../context/AuthContext';
-
+import { getAppConfig } from '../services/configService';
 
 // --- 类别常量 ---
 const CATEGORIES = {
@@ -146,8 +146,15 @@ function BudgetDetailPage() {
         setIsParsing(true);
         setError('');
 
+        const { aiKey } = getAppConfig(); // 从 localStorage 获取 Key
+        if (!aiKey) {
+            setError('AI Key 未在配置中找到！请检查配置。');
+            setIsParsing(false); // 停止加载
+            return;
+        }
+
         try {
-            const { data, error } = await supabase.functions.invoke('parse-expense', { body: { text: rawInputText } });
+            const { data, error } = await supabase.functions.invoke('parse-expense', { body: { text: rawInputText, apiKey: aiKey } });
 
             if (error) throw error;
             if (!data || !data.name || !data.amount) throw new Error("AI未能解析出有效内容或金额");
