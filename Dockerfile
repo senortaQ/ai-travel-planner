@@ -2,18 +2,19 @@
 # ----------------------------------
 # 阶段 1: 构建 (Build Stage)
 # ----------------------------------
-# 使用 Node.js 18-alpine 作为基础镜像，它体积更小
-FROM node:18-alpine AS build
+#
+# --- ⬇️ 1. 关键改动 ⬇️ ---
+# 使用 Node.js 22 (LTS) 来满足 Vite (rolldown) 的版本要求 (20.19+)
+FROM node:22-alpine AS build
+# --- ⬆️ 1. 关键改动 ⬆️ ---
 
 # 设置工作目录
 WORKDIR /app
 
 # 复制 package.json 和 lock 文件
-# (使用通配符 * 兼容 npm, yarn, pnpm)
 COPY package.json package-lock.json* ./
 
-# 安装依赖
-# 使用 --ci 而不是 install，它更快且用于 CI/CD 环境
+# 安装依赖 (使用 'ci' 更快、更可靠)
 RUN npm ci
 
 # 复制所有剩余的源代码
@@ -22,11 +23,10 @@ COPY . .
 #
 # 关键: 运行 Vite 构建
 #
-# !!! 重要 !!!
-# 在运行 `docker build` 之前，
-# 您本地的 .env 文件必须包含所有正确的 VITE_ 密钥！
-# (VITE_SUPABASE_URL, VITE_SUPABASE_ANON_KEY, VITE_AMAP_KEY 等)
-# Vite 会在构建时将这些值打包到静态文件中。
+# --- ⬇️ 2. 关键改动 ⬇️ ---
+# (移除了关于 .env 的旧注释，因为我们现在使用“运行时配置”，
+# 构建时不再需要任何 Key)
+# --- ⬆️ 2. 关键改动 ⬆️ ---
 #
 RUN npm run build
 
@@ -41,23 +41,14 @@ FROM nginx:1.25-alpine
 # 复制到 Nginx 的默认 public 目录
 COPY --from=build /app/dist /usr/share/nginx/html
 
-# (可选) 如果您的 React 应用使用了路由 (e.g., React Router),
-# 您需要配置 Nginx 将所有 404 请求重定向到 index.html。
-# 1. 在本地创建一个 `nginx.conf` 文件。
-# 2. 取消下面这行 'COPY' 命令的注释。
 #
-# --- nginx.conf 示例 (如果需要) ---
-# server {
-#     listen 80;
-#     location / {
-#         root   /usr/share/nginx/html;
-#         index  index.html index.htm;
-#         try_files $uri $uri/ /index.html;
-#     }
-# }
-# --- 结束 ---
+# --- ⬇️ 3. 关键改动 ⬇️ ---
+# 启用自定义 Nginx 配置 (nginx.conf)
+# 这对于 React Router (BrowserRouter) 正常工作至关重要
+# 它会将所有 404 请求重定向到 /index.html
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+# --- ⬆️ 3. 关键改动 ⬆️ ---
 #
-# COPY nginx.conf /etc/nginx/conf.d/default.conf
 
 # 暴露 Nginx 的 80 端口
 EXPOSE 80
