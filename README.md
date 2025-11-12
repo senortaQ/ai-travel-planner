@@ -22,6 +22,31 @@ AI 旅行规划师是一个智能 Web 应用，旨在简化旅行计划过程。
 * **AI/NLU**：[阿里云通义千问 (Dashscope API)](https://dashscope.aliyuncs.com/)
 * **地图服务**：高德地图 (Amap)
 
+## 🐳 Docker 快速运行 
+
+此方法**不需要**您在本地安装 Node.js 或 Supabase CLI。您只需要安装 [Docker Desktop](https://www.docker.com/products/docker-desktop/)。
+
+### 步骤 1: 拉取 Docker 镜像
+
+```bash
+docker pull senortaq/ai-travel-planner:latest
+```
+
+### 步骤 2: 运行 Docker 容器
+
+此命令将在您本地的 `8080` 端口启动前端应用。
+
+```bash
+docker run -d -p 8080:80 senortaq/ai-travel-planner:latest
+```
+
+### 步骤 3: 访问与配置
+
+1.  打开浏览器，访问： **http://localhost:8080**
+2.  应用首次启动，会显示一个**“项目配置”**页面（`ConfigScreen`）。
+3.  **输入您自己的 5 个 API Key**（请参考下方“准备 API Key”部分）。
+4.  点击“保存并运行”。
+
 ## ⚙️ 环境搭建和本地运行指南
 
 **开始前，您需要准备以下资源：**
